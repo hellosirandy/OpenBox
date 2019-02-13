@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import * as qs from 'query-string';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { withStyles, Paper } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { withStyles, Paper, Typography } from '@material-ui/core';
 import styles from './styles';
 import DefaultInput from '../DefaultInput';
 import DefaultButton from '../DefaultButton';
 import { validate, validateForm } from '../../utils/validation';
 import { signUp, signIn } from '../../store/actions/auth';
 import { confirmUserAPI } from '../../apis/auth';
+import { AUTH_SIGNIN, AUTH_SIGNUP, AUTH_CONFIRM } from '../../store/loadingTypes';
 
 class AuthPage extends React.PureComponent {
   state={
@@ -130,8 +132,15 @@ class AuthPage extends React.PureComponent {
       }
     }
   }
+
+  handleNavigateClick = (path: string) => () => {
+    const { history } = this.props;
+    history.replace(path);
+  }
   render() {
-    const { classes, match, location } = this.props;
+    const {
+      classes, match, location, isLoading,
+    } = this.props;
     const url = match.url.replace(/\/$/, '');
     const {
       controls: {
@@ -150,7 +159,8 @@ class AuthPage extends React.PureComponent {
           <DefaultInput label="Email" error={submitted && !email.valid} placeholder="email" value={email.value} onChange={this.handleInputChange('email')} />
           <DefaultInput label="Password" error={submitted && !password.valid} placeholder="password" type="password" value={password.value} onChange={this.handleInputChange('password')} />
           <DefaultInput label="Confirm Password" error={submitted && !confirmPassword.valid} placeholder="please enter the password again" type="password" value={confirmPassword.value} onChange={this.handleInputChange('confirmPassword')} />
-          <DefaultButton type="submit" onClick={this.handleSignUpClick}>Sign Up</DefaultButton>
+          <Typography className={classes.navigateButton} variant="h6" color="inherit" onClick={this.handleNavigateClick('/signin')}>Already a member? Sign in</Typography>
+          <DefaultButton loading={isLoading} type="submit" onClick={this.handleSignUpClick}>Sign Up</DefaultButton>
         </div>
       );
     } else if (url === '/signin') {
@@ -158,7 +168,8 @@ class AuthPage extends React.PureComponent {
         <div>
           <DefaultInput label="Email" error={submitted && !email.valid} placeholder="email" value={email.value} onChange={this.handleInputChange('email')} />
           <DefaultInput label="Password" error={submitted && !password.valid} placeholder="password" type="password" value={password.value} onChange={this.handleInputChange('password')} />
-          <DefaultButton type="submit" onClick={this.handleSignInClick}>Sign In</DefaultButton>
+          <Typography className={classes.navigateButton} variant="h6" color="inherit" onClick={this.handleNavigateClick('/signup')}>Not a member yet? Sign up</Typography>
+          <DefaultButton loading={isLoading} type="submit" onClick={this.handleSignInClick}>Sign In</DefaultButton>
         </div>
       );
     } else if (url === '/confirm') {
@@ -166,7 +177,7 @@ class AuthPage extends React.PureComponent {
         <div>
           <DefaultInput label="Email" disabled placeholder="email" value={queryEmail} onChange={this.handleInputChange('email')} />
           <DefaultInput label="Confirmation Code" error={submitted && !confirmationCode.valid} placeholder="confirmation code" value={confirmationCode.value} onChange={this.handleInputChange('confirmationCode')} />
-          <DefaultButton type="submit" onClick={this.handleConfirmClick}>Submit</DefaultButton>
+          <DefaultButton loading={isLoading} type="submit" onClick={this.handleConfirmClick}>Submit</DefaultButton>
         </div>
       );
     }
@@ -189,6 +200,14 @@ AuthPage.propTypes = {
   match: PropTypes.object.isRequired,
   onSignIn: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoading: Boolean(state.ui.isLoading[AUTH_SIGNIN] ||
+      state.ui.isLoading[AUTH_SIGNUP] || state.ui.isLoading[AUTH_CONFIRM]),
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -199,4 +218,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default compose(connect(null, mapDispatchToProps), withStyles(styles))(AuthPage);
+export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps), withStyles(styles))(AuthPage);

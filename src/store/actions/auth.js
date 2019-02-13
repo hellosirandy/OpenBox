@@ -1,4 +1,4 @@
-import { signInAPI, signOutAPI, checkAuthenticatedAPI, signUpAPI, changePasswordAPI } from '../../apis/auth';
+import { signInAPI, signOutAPI, checkAuthenticatedAPI, signUpAPI } from '../../apis/auth';
 import { AUTH_SET_TOKEN } from '../actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
 import { AUTH_SIGNIN } from '../loadingTypes';
