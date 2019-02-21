@@ -16,8 +16,12 @@ Amplify.configure({
 
 export const checkAuthenticatedAPI = async () => {
   const session = await Auth.currentSession();
+  const user = await Auth.currentAuthenticatedUser();
   if (session.isValid()) {
-    return session.getIdToken().getJwtToken();
+    return {
+      token: session.getIdToken().getJwtToken(),
+      user: { firstName: user.attributes.given_name, lastName: user.attributes.family_name },
+    };
   }
   throw String('Token is invalud');
 };

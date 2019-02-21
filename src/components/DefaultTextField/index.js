@@ -5,7 +5,7 @@ import { withStyles, TextField } from '@material-ui/core';
 import styles from './styles';
 
 const DefaultTextField = ({
-  classes, label, value, placeholder,
+  classes, label, value, placeholder, onChange,
 }) => {
   return (
     <TextField
@@ -18,6 +18,7 @@ const DefaultTextField = ({
       className={classes.textField}
       margin="normal"
       variant="outlined"
+      onChange={onChange}
     />
   );
 };
@@ -26,6 +27,7 @@ DefaultTextField.defaultProps = {
   label: '',
   value: '',
   placeholder: '',
+  onChange: null,
 };
 
 DefaultTextField.propTypes = {
@@ -33,6 +35,7 @@ DefaultTextField.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default compose(withStyles(styles))(DefaultTextField);

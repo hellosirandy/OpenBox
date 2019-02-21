@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Paper } from '@material-ui/core';
+import uuid from 'uuid/v4';
 import styles from './styles';
 
 class SquareButton extends React.PureComponent {
+  state = {
+    image: '',
+  }
   handleImageLoadend = (file, reader) => () => {
     const newImage = {
-      key: 'UUID()',
+      key: uuid(),
       base64: reader.result,
       name: file.name,
     };
-    console.log(newImage);
+    this.setState({ image: reader.result });
     this.props.onChange(newImage);
-    // console.log(event);
   }
   handleFileInputChange = (event) => {
     const { files } = event.target;
@@ -27,8 +30,9 @@ class SquareButton extends React.PureComponent {
   }
   render() {
     const {
-      classes, children, image,
+      classes, children,
     } = this.props;
+    const { image } = this.state;
     return (
       <Paper className={classes.container} onClick={this.handleFileClick}>
         <input
@@ -50,13 +54,13 @@ class SquareButton extends React.PureComponent {
 
 SquareButton.defaultProps = {
   children: '',
-  image: '',
+  onChange: null,
 };
 
 SquareButton.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.string,
-  image: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default withStyles(styles)(SquareButton);

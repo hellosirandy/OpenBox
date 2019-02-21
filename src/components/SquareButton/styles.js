@@ -1,7 +1,5 @@
-export default theme => ({
+export default () => ({
   container: {
-    // backgroundColor: theme.palette.secondary.main,
-    // backgroundColor: '#ffead0',
     border: 'dashed gray',
     content: '',
     display: 'block',
@@ -12,9 +10,9 @@ export default theme => ({
   },
   image: {
     position: 'absolute',
-    width: '70%',
-    left: '15%',
-    top: '15%',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
 });
 

@@ -2,6 +2,7 @@ import { signInAPI, signOutAPI, checkAuthenticatedAPI, signUpAPI } from '../../a
 import { AUTH_SET_TOKEN } from '../actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
 import { AUTH_SIGNIN } from '../loadingTypes';
+import { setUserName } from './user';
 
 export const signIn = (email, password) => {
   return async (dispatch) => {
@@ -46,8 +47,10 @@ export const signOut = () => {
 export const checkAuthenticated = () => {
   return async (dispatch, getState) => {
     try {
-      const token = await checkAuthenticatedAPI();
+      const userAndToken = await checkAuthenticatedAPI();
+      const { token, user } = userAndToken;
       const { auth: { token: oldToken } } = getState();
+      dispatch(setUserName(user));
       if (token !== oldToken) {
         dispatch(setAuthenticated(token));
       }

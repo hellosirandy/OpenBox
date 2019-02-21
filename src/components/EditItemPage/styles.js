@@ -8,4 +8,7 @@ export default () => ({
     maxWidth: 600,
     width: '100%',
   },
+  imageGrid: {
+    marginBottom: 16,
+  },
 });
