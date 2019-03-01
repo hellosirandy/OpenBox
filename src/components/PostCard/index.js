@@ -39,11 +39,11 @@ class PostCard extends React.PureComponent {
               {post.author.name.split(' ')[0][0]}{post.author.name.split(' ')[1][0]}
             </Avatar>
           }
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
+          // action={
+          //   <IconButton>
+          //     <MoreVertIcon />
+          //   </IconButton>
+          // }
           title={post.author.name}
           subheader={moment(post.createTime).format('MMM D, h:mm a')}
         />
@@ -52,12 +52,12 @@ class PostCard extends React.PureComponent {
           image={post.images[0]}
           title="Paella dish"
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+        <CardContent style={{ paddingBottom: 0 }}>
+          <Typography variant="h6">
             {post.title}
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
+        <CardActions style={{ paddingTop: 0 }} disableActionSpacing>
           <IconButton aria-label="Add to favorites">
             <FavoriteIcon />
           </IconButton>

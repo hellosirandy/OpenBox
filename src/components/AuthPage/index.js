@@ -47,6 +47,7 @@ class AuthPage extends React.PureComponent {
         validationRules: ['notEmpty'],
       },
     },
+    errorMsg: '',
     submitted: false,
   }
   handleInputChange = key => ({ target: { value } }) => {
@@ -88,7 +89,7 @@ class AuthPage extends React.PureComponent {
         history.replace(`/confirm?email=${this.state.controls.email.value}`);
       } catch (e) {
         console.log(e);
-        // this.setState({ errorMsg: e });
+        this.setState({ errorMsg: e });
       }
     }
   }
@@ -107,10 +108,12 @@ class AuthPage extends React.PureComponent {
       try {
         await onSignIn(email, password);
       } catch (e) {
+        console.log(e);
         if (e.needConfirmation) {
+          this.setState({ submitted: false });
           history.replace(`/confirm?email=${this.state.controls.email.value}`);
         } else {
-          // this.setState({ errorMsg: e });
+          this.setState({ errorMsg: e });
         }
       }
     }
@@ -125,16 +128,17 @@ class AuthPage extends React.PureComponent {
     if (valid) {
       try {
         await confirmUserAPI(email, code);
+        this.setState({ submitted: false });
         history.replace('/signin');
       } catch (e) {
-        console.log(e);
-        // this.setState({ errorMsg: e.message });
+        this.setState({ errorMsg: e.message });
       }
     }
   }
 
   handleNavigateClick = (path: string) => () => {
     const { history } = this.props;
+    this.setState({ submitted: false });
     history.replace(path);
   }
   render() {
@@ -147,6 +151,7 @@ class AuthPage extends React.PureComponent {
         email, password, confirmPassword, firstName, lastName, confirmationCode,
       },
       submitted,
+      errorMsg,
     } = this.state;
     let content;
     const { email: queryEmail } = qs.parse(location.search);
@@ -185,6 +190,7 @@ class AuthPage extends React.PureComponent {
       <div className={classes.container}>
         <Paper className={classes.form}>
           <form>
+            {errorMsg && <Typography paragraph className={classes.errorMsg}>* {errorMsg}</Typography>}
             {content}
           </form>
         </Paper>

@@ -21,4 +21,7 @@ export default () => ({
       textDecoration: 'underline',
     },
   },
+  errorMsg: {
+    color: 'red',
+  },
 });

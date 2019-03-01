@@ -18,9 +18,9 @@ class HomePage extends React.PureComponent {
       <div className={classes.container}>
         <NavBar />
         <div className={classes.innerContainer}>
-          <Grid container spacing={16}>
+          <Grid container spacing={40}>
             {posts.map(post => (
-              <Grid item xl={2} lg={3} md={3} key={post.postId}>
+              <Grid item xl={3} lg={4} md={6} key={post.postId}>
                 <div>
                   <PostCard post={post} />
                 </div>

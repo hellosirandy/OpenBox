@@ -16,7 +16,7 @@ export const signIn = (email, password) => {
       if (e.code === 'UserNotConfirmedException') {
         throw Object({ needConfirmation: true });
       } else {
-        throw String('Incorrect email/password');
+        throw String(e.message);
       }
     }
   };
@@ -28,11 +28,12 @@ export const signUp = (email: string, password: string, firstName: string, lastN
       const result = await signUpAPI(email, password, firstName, lastName);
       console.log(result.user);
     } catch (e) {
-      if (e.code === 'UsernameExistsException') {
-        throw String('User already exists');
-      } else {
-        throw String('Invalid email/password');
-      }
+      // if (e.code === 'UsernameExistsException') {
+      //   throw String('User already exists');
+      // } else {
+      //   throw String('Invalid email/password');
+      // }
+      throw String(e.message);
     }
   };
 };
