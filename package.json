@@ -6,6 +6,10 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "aws-amplify": "^1.1.19",
+    "draft-js": "^0.10.5",
+    "draft-js-image-plugin": "^2.0.6",
+    "draft-js-inline-toolbar-plugin": "^3.0.0",
+    "draft-js-plugins-editor": "^2.1.1",
     "moment": "^2.24.0",
     "prop-types": "^15.7.1",
     "query-string": "^6.2.0",
@@ -35,6 +39,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "css-loader": "^2.1.0",
     "eslint": "5.12.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-standard": "^11.0.0",
@@ -45,6 +50,7 @@
     "eslint-plugin-react": "^7.9.1",
     "eslint-plugin-standard": "^3.1.0",
     "json-loader": "^0.5.7",
+    "style-loader": "^0.23.1",
     "webpack": "4.28.3"
   }
 }

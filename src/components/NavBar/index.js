@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { signOut } from '../../store/actions/auth';
 import styles from './styles';
+import titleLogo from '../../images/title_white.svg';
 
 class NavBar extends React.PureComponent {
   state = {
@@ -55,9 +56,10 @@ class NavBar extends React.PureComponent {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar style={{ justifyContent: 'space-between' }}>
-            <Typography variant="h6" color="inherit" className={classes.icon} onClick={this.handleIconClick}>
+            {/* <Typography variant="h6" color="inherit" className={classes.icon} onClick={this.handleIconClick}>
               Open Box
-            </Typography>
+            </Typography> */}
+            <img src={titleLogo} height={50} alt="" />
             <div>
               <IconButton
                 style={{ alignSelf: 'end' }}

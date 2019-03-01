@@ -12,6 +12,7 @@ import { validate, validateForm } from '../../utils/validation';
 import { signUp, signIn } from '../../store/actions/auth';
 import { confirmUserAPI } from '../../apis/auth';
 import { AUTH_SIGNIN, AUTH_SIGNUP, AUTH_CONFIRM } from '../../store/loadingTypes';
+import logo from '../../images/logo.svg';
 
 class AuthPage extends React.PureComponent {
   state={
@@ -155,8 +156,9 @@ class AuthPage extends React.PureComponent {
     } = this.state;
     let content;
     const { email: queryEmail } = qs.parse(location.search);
-
+    let title;
     if (url === '/signup') {
+      title = 'Sign up';
       content = (
         <div>
           <DefaultInput label="First Name" error={submitted && !firstName.valid} placeholder="first name" value={firstName.value} onChange={this.handleInputChange('firstName')} />
@@ -169,6 +171,7 @@ class AuthPage extends React.PureComponent {
         </div>
       );
     } else if (url === '/signin') {
+      title = 'Sign in';
       content = (
         <div>
           <DefaultInput label="Email" error={submitted && !email.valid} placeholder="email" value={email.value} onChange={this.handleInputChange('email')} />
@@ -178,6 +181,7 @@ class AuthPage extends React.PureComponent {
         </div>
       );
     } else if (url === '/confirm') {
+      title = 'Confirm';
       content = (
         <div>
           <DefaultInput label="Email" disabled placeholder="email" value={queryEmail} onChange={this.handleInputChange('email')} />
@@ -189,8 +193,15 @@ class AuthPage extends React.PureComponent {
     return (
       <div className={classes.container}>
         <Paper className={classes.form}>
+          <div style={{ marginBottom: 30 }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <img src={logo} alt="" width={60} height={60} />
+            </div>
+            <Typography variant="h5" style={{ textAlign: 'center' }}>{title}</Typography>
+          </div>
           <form>
-            {errorMsg && <Typography paragraph className={classes.errorMsg}>* {errorMsg}</Typography>}
+            {errorMsg &&
+            <Typography paragraph className={classes.errorMsg}>* {errorMsg}</Typography>}
             {content}
           </form>
         </Paper>

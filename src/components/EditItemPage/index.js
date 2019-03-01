@@ -12,6 +12,7 @@ import SquareButton from '../SquareButton';
 import DefaultButton from '../DefaultButton';
 import { createPost } from '../../store/actions/post';
 import { POST_CREATING } from '../../store/loadingTypes';
+import Editor from '../Editor';
 
 class EditItemPage extends React.PureComponent {
   state = {
@@ -82,7 +83,10 @@ class EditItemPage extends React.PureComponent {
                 </Grid>
               </Grid>
             </div>
-            <DefaultButton loading={isLoading} onClick={this.handleSubmitClick}>Submit</DefaultButton>
+            <Editor />
+            <DefaultButton loading={isLoading} onClick={this.handleSubmitClick}>
+              Submit
+            </DefaultButton>
           </div>
         </div>
       </div>

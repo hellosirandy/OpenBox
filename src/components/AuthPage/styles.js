@@ -5,11 +5,12 @@ export default () => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'rgb(249, 249, 249)',
   },
   form: {
-    maxWidth: 300,
+    maxWidth: 350,
     width: '100%',
-    padding: 16,
+    padding: 24,
   },
   navigateButton: {
     color: 'gray!important',
