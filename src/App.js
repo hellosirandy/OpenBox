@@ -6,6 +6,7 @@ import AuthPage from './components/AuthPage';
 import { checkAuthenticated } from './store/actions/auth';
 import HomePage from './components/HomePage';
 import EditItemPage from './components/EditItemPage';
+import PostPage from './components/PostPage';
 
 class App extends Component {
   constructor(props) {
@@ -48,6 +49,15 @@ class App extends Component {
               render={(p) => {
                 if (isAuthenticated) {
                   return (<EditItemPage />);
+                }
+                return (<Redirect to={{ pathname: '/signin', state: { nextPathName: p.location.pathname } }} />);
+              }}
+            />
+            <Route
+              path="/post/:postId"
+              render={(p) => {
+                if (isAuthenticated) {
+                  return (<PostPage />);
                 }
                 return (<Redirect to={{ pathname: '/signin', state: { nextPathName: p.location.pathname } }} />);
               }}

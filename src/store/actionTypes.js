@@ -4,3 +4,6 @@ export const UI_STOP_LOADING = 'UI_STOP_LOADING';
 export const AUTH_SET_TOKEN = 'AUTH_SET_TOKEN';
 
 export const USER_SET_NAME = 'USER_SET_NAME';
+
+export const POST_SET_POSTS = 'POST_SET_POSTS';
+export const POST_SET_POST_DICT = 'POST_SET_POST_DICT';
