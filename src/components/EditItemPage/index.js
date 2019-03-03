@@ -75,7 +75,7 @@ class EditItemPage extends React.PureComponent {
         <div className={classes.container}>
           <div className={classes.content}>
             <DefaultInput onChange={this.handleInputChange('title')} value={title.value} label="Title" placeholder="title" />
-            <DefaultTextField onChange={this.handleInputChange('content')} value={content.value} label="Content" placeholder="How do you feel about it?" />
+            {/* <DefaultTextField onChange={this.handleInputChange('content')} value={content.value} label="Content" placeholder="How do you feel about it?" /> */}
             <div className={classes.imageGrid}>
               <Grid container spacing={24}>
                 <Grid item xs={3}>
@@ -84,9 +84,9 @@ class EditItemPage extends React.PureComponent {
               </Grid>
             </div>
             <Editor />
-            <DefaultButton loading={isLoading} onClick={this.handleSubmitClick}>
+            {/* <DefaultButton loading={isLoading} onClick={this.handleSubmitClick}>
               Submit
-            </DefaultButton>
+            </DefaultButton> */}
           </div>
         </div>
       </div>
